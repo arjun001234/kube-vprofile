@@ -2,13 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vproapp
-  labels:
+  labels: 
     app: vproapp
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: vproapp
-  replicas: 1
   template:
     metadata:
       labels:
@@ -17,10 +17,6 @@ spec:
       containers:
       - name: vproapp
         image: arjun001234/vprofileapp:latest
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
         ports:
         - name: vproapp-port
           containerPort: 8080
@@ -30,4 +26,4 @@ spec:
         command: ['sh', '-c', 'until nslookup vprodb; do echo waiting for mydb; sleep 2; done;']
       - name: init-memcache
         image: busybox
-        command: ['sh', '-c', 'until nslookup vprocache01; do echo waiting for mydb; sleep 2; done;'] 
+        command: ['sh', '-c', 'until nslookup vprocache01; do echo waiting for mydb; sleep 2; done;']
